@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>关于我-LJpgr Blog</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="zh-CN" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="supported-color-schemes" content="light dark">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="google-site-verification" content="ckhUaoa05QCmWoE1FafzTBcqYI4yBOy-UJKopXDS18M" />
+    <meta name="author" content="LJpgr" />
+    <meta name="description" content="LJpgr的个人博客" />
+    <meta name="keywords" content="LJpgr,Blog" />
+    <link rel="icon" href="/static/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/static/img/logo.png" />
+    <link rel="stylesheet" href="/static/css/common.css?t=20210221182242">
+    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210221182242">
+    <link rel="stylesheet" href="/static/css/post.css?t=20210221182242">
+    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210221182242">
+    <link rel="stylesheet" href="/static/css/code-light.css?t=20210221182242">
+    <script>
+        window.blog = {
+            baseurl: "",
+            buildAt: "20210221182242",
+            darkTheme: false,
+            setDarkTheme: function (dark) {
+                //this.darkTheme = Boolean(dark);
+                //document.documentElement.className = this.darkTheme ? 'dark': '';
+                //document.querySelector('meta[name=theme-color]').setAttribute('content', this.darkTheme ? '#2D2E32': '#FFFFFF');
+            }
+        }
+        if (sessionStorage.darkTheme !== undefined) {
+            blog.setDarkTheme(sessionStorage.darkTheme === 'true'); // 记忆值，单个窗口内有效
+        } else {
+            blog.setDarkTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); // 跟随系统
+        }
+        if (window.matchMedia) {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            media.addListener(function (ev) {
+                blog.setDarkTheme(ev.currentTarget.matches);
+                sessionStorage.removeItem('darkTheme');
+            });
+        }
+    </script>
+</head><body ondragstart="return false;">
+<header class="header">
+    <img class="logo" src="/static/img/rust-logo-blk.svg" alt="logo" />
+    <nav class="menu">
+        <a href="/" class="hover-underline">首页</a>
+        <a href="/pages/categories.html" class="hover-underline">归类</a>
+        <a href="/pages/search.html" class="hover-underline">搜索</a>
+        <a href="/pages/chat.html" class="hover-underline">留言</a>
+        <a href="/pages/about.html" class="hover-underline">关于</a>
+        </nav>
+</header><div class="page page-post">
+  <h1 class="title" id="关于我">关于我</h1>
+  
+  <div class="post">
+    <blockquote>
+  <p>Hello 陌生人，欢迎访问 TMaize Blog</p>
+</blockquote>
+
+<p>该博客托管于 GitHub Page，国内默认解析到腾讯云，以保证国内外的访问速度。留言页面使用腾讯的“吐个槽”，另外使用的腾讯的 MTA 分析工具统计访问量</p>
+
+<p>主题是自己写的，见<a href="https://github.com/TMaize/tmaize-blog">tmaize-blog</a>，喜欢的话可以给个小星星。另外欢迎添加友链，在<a href="chat.html">留言板</a>留言即可</p>
+
+<h2 id="相关技能">相关技能</h2>
+
+<ul>
+  <li>
+    <p>熟悉 JavaScript 语言， 熟练使用 Vue 全家桶,jQuery 等前端框架</p>
+  </li>
+  <li>
+    <p>熟悉 Java，NodeJs,Go 等后端语言</p>
+  </li>
+  <li>
+    <p>后端框架 Spring，Hibernate，JFinal，Mybatis 略有了解</p>
+  </li>
+  <li>
+    <p>数据库方面能熟练使用 MySQL,Oracle，MongoDB</p>
+  </li>
+  <li>
+    <p>Linux 的简单使用，各种服务的搭建</p>
+  </li>
+  <li>
+    <p>能够使用 Git/SVN 对代码版本进行控制</p>
+  </li>
+</ul>
+
+<h2 id="联系我">联系我</h2>
+
+<ul>
+  <li>
+    <p>QQ    : 1772314831</p>
+  </li>
+  <li>
+    <p>Email : <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=YBQNAQkaBSAREU4DDw0">tmaize@qq.com</a></p>
+  </li>
+  <li>
+    <p>GitHub: <a href="https://github.com/tmaize">https://github.com/tmaize</a></p>
+  </li>
+</ul>
+
+  </div>
+  
+</div>
+<footer class="footer">
+  <span>Copyright © LJpgr</span>
+  <a href="/static/xml/rss.xml">RSS订阅</a>
+  <span>Theme By</span>
+  <a href="https://github.com/TMaize/tmaize-blog">TMaize</a>
+</footer>
+<div id="to-top">
+  <span></span>
+  <span></span>
+</div>
+<script type="text/javascript" src="/static/js/blog.js?t=20210221182242"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20210221182242"></script>
+<!-- 点击页面文字冒出特效 -->
+<script>
+;(function(){
+  var textArr = ['富强', '民主', '文明', '和谐', '自由', '平等', '公正', '法治', '爱国', '敬业', '诚信', '友善']
+  window.blog.initClickEffect(textArr)
+})()
+</script>
+
+</body>
+</html>

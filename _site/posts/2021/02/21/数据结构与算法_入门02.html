@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数据结构与算法_入门02-LJpgr Blog</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="zh-CN" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="supported-color-schemes" content="light dark">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="google-site-verification" content="ckhUaoa05QCmWoE1FafzTBcqYI4yBOy-UJKopXDS18M" />
+    <meta name="author" content="LJpgr" />
+    <meta name="description" content="数据结构与算法_入门02" />
+    <meta name="keywords" content="LJpgr,数据结构与算法" />
+    <link rel="icon" href="/static/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/static/img/logo.png" />
+    <link rel="stylesheet" href="/static/css/common.css?t=20210221182242">
+    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210221182242">
+    <link rel="stylesheet" href="/static/css/post.css?t=20210221182242">
+    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210221182242">
+    <link rel="stylesheet" href="/static/css/code-light.css?t=20210221182242">
+    <script>
+        window.blog = {
+            baseurl: "",
+            buildAt: "20210221182242",
+            darkTheme: false,
+            setDarkTheme: function (dark) {
+                //this.darkTheme = Boolean(dark);
+                //document.documentElement.className = this.darkTheme ? 'dark': '';
+                //document.querySelector('meta[name=theme-color]').setAttribute('content', this.darkTheme ? '#2D2E32': '#FFFFFF');
+            }
+        }
+        if (sessionStorage.darkTheme !== undefined) {
+            blog.setDarkTheme(sessionStorage.darkTheme === 'true'); // 记忆值，单个窗口内有效
+        } else {
+            blog.setDarkTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); // 跟随系统
+        }
+        if (window.matchMedia) {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            media.addListener(function (ev) {
+                blog.setDarkTheme(ev.currentTarget.matches);
+                sessionStorage.removeItem('darkTheme');
+            });
+        }
+    </script>
+</head><body ondragstart="return false;">
+<header class="header">
+    <img class="logo" src="/static/img/rust-logo-blk.svg" alt="logo" />
+    <nav class="menu">
+        <a href="/" class="hover-underline">首页</a>
+        <a href="/pages/categories.html" class="hover-underline">归类</a>
+        <a href="/pages/search.html" class="hover-underline">搜索</a>
+        <a href="/pages/chat.html" class="hover-underline">留言</a>
+        <a href="/pages/about.html" class="hover-underline">关于</a>
+        </nav>
+</header><div class="page page-post">
+  <h1 class="title" id="数据结构与算法_入门02">数据结构与算法_入门02</h1>
+  
+  <div class="subtitle">LJpgr 于 2021-02-21 发布</div>
+  
+  <div class="post">
+    <p>这篇文章主要总结了<em>数据结构与算法</em> 的定义，以及度量算法的标准与<strong><em>方法</em></strong></p>
+
+<h2 id="什么是数据结构和算法">什么是数据结构和算法？</h2>
+
+<p>数据结构就是一组数据的存储结构，算法就是操作数据的一组方法。</p>
+
+<p>例如，图书馆中的书籍如果比作数据的话，那么各个书架就是存储数据的“数据结构”，如何找到一本书所需要的方法就称为算法。</p>
+
+<p>在计算机的角度观察，数据结构就是存储数据的逻辑结构，而非物理结构，例如，栈、序列、队列、树等等，相应地，算法就是在这些存储结构中查询、修改、删除、添加对应数据的方法，如：冒泡排序、二分查找、动态规划等。</p>
+
+<p>数据结构与算法之间是不可分割的，算法就是作用于对应的数据结构之上，数据结构就是为算法提供的基础逻辑，可以说两者是相辅相衬，互相影响的。</p>
+
+<p>下图包含了大部分的数据结构以及算法：
+<img src="/posts/2021/02/21/all.jpg" alt="" /></p>
+
+  </div>
+  
+</div>
+<footer class="footer">
+  <span>Copyright © LJpgr</span>
+  <a href="/static/xml/rss.xml">RSS订阅</a>
+  <span>Theme By</span>
+  <a href="https://github.com/TMaize/tmaize-blog">TMaize</a>
+</footer>
+<div id="to-top">
+  <span></span>
+  <span></span>
+</div>
+<script type="text/javascript" src="/static/js/blog.js?t=20210221182242"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20210221182242"></script>
+<!-- 点击页面文字冒出特效 -->
+<script>
+;(function(){
+  var textArr = ['富强', '民主', '文明', '和谐', '自由', '平等', '公正', '法治', '爱国', '敬业', '诚信', '友善']
+  window.blog.initClickEffect(textArr)
+})()
+</script>
+
+</body>
+</html>
