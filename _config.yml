@@ -7,6 +7,9 @@ keywords: LJpgr,Blog
 author: LJpgr
 footerText: 'Copyright © LJpgr'
 
+plugins:
+  - jekyll-toc
+
 # 这些不要动
 permalink: /posts/:year/:month/:day/:title.html
 kramdown:

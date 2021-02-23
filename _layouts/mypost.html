@@ -9,7 +9,7 @@
   <div class="subtitle">{{site.author}} 于 {{ page.date | date: "%Y-%m-%d" }} 发布</div>
   {% endif %}
   <div class="post">
-    {{ content }}
+    {{ content | toc }}
   </div>
   {% if site.extAdsense -%}
   <div class="adsense" style="overflow: hidden;">
