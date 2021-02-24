@@ -5,14 +5,14 @@
     <link>/</link>
     <description>LJpgr的个人博客</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 24 Feb 2021 10:04:18 +0800</pubDate>
-    <lastBuildDate>Wed, 24 Feb 2021 10:04:18 +0800</lastBuildDate>
+    <pubDate>Wed, 24 Feb 2021 14:32:54 +0800</pubDate>
+    <lastBuildDate>Wed, 24 Feb 2021 14:32:54 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     <atom:link href="//static/xml/rss.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>数据结构与算法_入门00</title>
       <link>//posts/2021/02/21/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95_%E5%85%A5%E9%97%A800.html</link>
-      <description>这篇文章主要总结了数据结构与算法的定义，以及度量算法的标准与方法什么是数据结构和算法？数据结构就是一组数据的存储结构，算法就是操作数据的一组方法。例如，图书馆中的书籍如果比作数据的话，那么各个书架就是存储数据的“数据结构”，如何找到一...</description>
+      <description>什么是数据结构和算法？数据结构就是一组数据的存储结构，算法就是操作数据的一组方法。例如，图书馆中的书籍如果比作数据的话，那么各个书架就是存储数据的“数据结构”，如何找到一本书所需要的方法就称为算法。在计算机的角度观察，数据结构就是存储...</description>
       <pubDate>Sun, 21 Feb 2021 00:00:00 +0800</pubDate>
       <gui>//posts/2021/02/21/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95_%E5%85%A5%E9%97%A800.html</gui>
     </item>
