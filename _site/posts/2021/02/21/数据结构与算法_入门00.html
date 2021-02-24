@@ -14,15 +14,15 @@
     <meta name="keywords" content="LJpgr,数据结构与算法" />
     <link rel="icon" href="/static/img/favicon.ico" />
     <link rel="apple-touch-icon" href="/static/img/logo.png" />
-    <link rel="stylesheet" href="/static/css/common.css?t=20210224143254">
-    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210224143254">
-    <link rel="stylesheet" href="/static/css/post.css?t=20210224143254">
-    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210224143254">
-    <link rel="stylesheet" href="/static/css/code-light.css?t=20210224143254">
+    <link rel="stylesheet" href="/static/css/common.css?t=20210224154326">
+    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210224154326">
+    <link rel="stylesheet" href="/static/css/post.css?t=20210224154326">
+    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210224154326">
+    <link rel="stylesheet" href="/static/css/code-light.css?t=20210224154326">
     <script>
         window.blog = {
             baseurl: "",
-            buildAt: "20210224143254",
+            buildAt: "20210224154326",
             darkTheme: false,
             setDarkTheme: function (dark) {
                 //this.darkTheme = Boolean(dark);
@@ -62,6 +62,7 @@
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#什么是数据结构和算法">什么是数据结构和算法？</a></li>
 <li class="toc-entry toc-h2"><a href="#如何衡量一个算法的好坏">如何衡量一个算法的好坏?</a></li>
+<li class="toc-entry toc-h2"><a href="#还有什么其他方法">还有什么其他方法？</a></li>
 </ul><h2 id="什么是数据结构和算法">
 <a class="anchor" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>什么是数据结构和算法？</h2>
 
@@ -83,7 +84,7 @@
 
 <p>那么，如何通过具体的指标来衡量一个算法呢？最简单的比较算法执行效率的方法就是直接判断程序执行的次数。假设排除其他外在因素的影响，程序每一行执行的时间都为==utime==。参考下边代码：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">a</span><span class="o">(){</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">A</span><span class="o">(){</span>
 	<span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
 	<span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="mi">10</span><span class="o">;</span>
 	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">t</span><span class="o">&lt;</span><span class="n">b</span><span class="o">;</span><span class="n">t</span><span class="o">++){</span>
@@ -102,8 +103,54 @@
 
 </blockquote>
 
-<p>其中T代表程序执行的时间，n代表数据的规模，f(n)代表程序执行的次数总和，O为时间与执行次数的关系，这种表示法就是<strong><u>大O时间复杂度表示法</u></strong></p>
+<p>其中T代表程序执行的时间，n代表数据的规模，f(n)代表程序执行的次数总和， O 为时间与执行次数的关系，是一种随着数据规模变化相对应时间变化的趋势，这种表示法就是<strong><u>大 O 时间复杂度表示法</u></strong>。</p>
 
+<p>例如下边代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">A</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">t</span><span class="o">&lt;</span><span class="n">n</span><span class="o">;</span><span class="n">t</span><span class="o">++){</span>
+        <span class="n">a</span><span class="o">+=</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">n</span><span class="o">;</span><span class="n">j</span><span class="o">++){</span>
+            <span class="n">b</span><span class="o">+=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>此代码中第2，3行只执行1次，对于时间复杂度 O 为 O(2)=C=1，我们认为是常数时间内执行，几乎不影响复杂度 O。第4，5，7行执行了n次，时间复杂度为 O(n) 。第8，9行代码执行了n*n次，时间复杂度为 O(n<sup>2</sup>)。那么该段程序最终的时间复杂度为 O(n<sup>2</sup>)+O(n)+C，从多项式的函数图像来看，影响函数曲线斜度最大的是最高次项，其他项可忽略不计，最终该段代码的时间复杂度为 O(n<sup>2</sup>)。</p>
+
+<p>下图为常见的几种时间复杂度函数图像：
+<img src="/posts/2021/02/21/function_pic.jpg" alt=""></p>
+
+<p>我们根据常见的代码结构可以总结出来以下规律：</p>
+
+<ul>
+  <li>只需要关注循环次数最多的一段代码</li>
+  <li>整体复杂度总是等于量级最大的那一段代码</li>
+  <li>嵌套代码的复杂度等于两者复杂度的乘积</li>
+</ul>
+
+<h2 id="还有什么其他方法">
+<a class="anchor" href="#%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>还有什么其他方法？</h2>
+
+<p>除了从时间的角度分析算法的效率，还可以从空间的角度分析。类似地，空间复杂度即随着数据规模的变化存储空间的变化趋势。</p>
+
+<p>看下段代码示例：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">6</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+        <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>这段代码第2行只需要申请一个变量的空间，记为 O(1)。第3行代码申请了存放n个int类型的数组，使用的空间复杂度记为 O(n)。其他行代码并没有使用额外的空间。所以，这段代码的空间复杂度为 O(n) 【忽略常数项】。</p>
 
   </div>
   
@@ -118,8 +165,8 @@
   <span></span>
   <span></span>
 </div>
-<script type="text/javascript" src="/static/js/blog.js?t=20210224143254"></script>
-<script type="text/javascript" src="/static/js/search.js?t=20210224143254"></script>
+<script type="text/javascript" src="/static/js/blog.js?t=20210224154326"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20210224154326"></script>
 <!-- 点击页面文字冒出特效 -->
 <script>
 ;(function(){
