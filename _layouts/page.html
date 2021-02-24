@@ -4,7 +4,7 @@
 
 <body ondragstart="return false;">
     {% include header.html -%}
-    {{ content }}
+    {{ content | toc }}
     {% include footer.html -%}
     {% include script.html -%}
 </body>
