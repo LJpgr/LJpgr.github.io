@@ -15,6 +15,7 @@ permalink: /posts/:year/:month/:day/:title.html
 kramdown:
   auto_ids: true
   input: GFM
+  mathjax: true 
   syntax_highlighter: rouge
 exclude: ['CNAME', 'README.md', 'LICENSE', '_site', 'dist', 'Gemfile', 'Gemfile.lock', 'blog.sh']
 
@@ -34,8 +35,6 @@ menu:
     url: /pages/categories.html
   - title: 搜索
     url: /pages/search.html
-  - title: 留言
-    url: /pages/chat.html
   - title: 关于
     url: /pages/about.html
 

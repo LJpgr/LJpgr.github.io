@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>0.0数据结构与算法_入门-LJpgr Blog</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="zh-CN" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="supported-color-schemes" content="light dark">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="google-site-verification" content="ckhUaoa05QCmWoE1FafzTBcqYI4yBOy-UJKopXDS18M" />
+    <meta name="author" content="LJpgr" />
+    <meta name="description" content="0.0数据结构与算法_入门" />
+    <meta name="keywords" content="LJpgr,数据结构与算法" />
+    <link rel="icon" href="/static/img/favicon.ico" />
+    <link rel="stylesheet" href="/static/css/common.css?t=20210513171618">
+    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210513171618">
+    <link rel="stylesheet" href="/static/css/post.css?t=20210513171618">
+    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210513171618">
+    <link rel="stylesheet" href="/static/css/code-light.css?t=20210513171618">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.blog = {
+            baseurl: "",
+            buildAt: "20210513171618",
+            darkTheme: false,
+            setDarkTheme: function (dark) {
+                //this.darkTheme = Boolean(dark);
+                //document.documentElement.className = this.darkTheme ? 'dark': '';
+                //document.querySelector('meta[name=theme-color]').setAttribute('content', this.darkTheme ? '#2D2E32': '#FFFFFF');
+            }
+        }
+        if (sessionStorage.darkTheme !== undefined) {
+            blog.setDarkTheme(sessionStorage.darkTheme === 'true'); // 记忆值，单个窗口内有效
+        } else {
+            blog.setDarkTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); // 跟随系统
+        }
+        if (window.matchMedia) {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            media.addListener(function (ev) {
+                blog.setDarkTheme(ev.currentTarget.matches);
+                sessionStorage.removeItem('darkTheme');
+            });
+        }
+    </script>
+     <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head><body ondragstart="return false;">
+<header class="header">
+    <img class="logo" src="/static/img/rust-logo-blk.svg" alt="logo" />
+    <nav class="menu">
+        <a href="/" class="hover-underline">首页</a>
+        <a href="/pages/categories.html" class="hover-underline">归类</a>
+        <a href="/pages/search.html" class="hover-underline">搜索</a>
+        <a href="/pages/about.html" class="hover-underline">关于</a>
+        </nav>
+</header><div class="page page-post">
+  <h1 class="title" id="0.0数据结构与算法_入门">0.0数据结构与算法_入门</h1>
+  
+  <div class="subtitle">LJpgr 于 2021-02-21 发布</div>
+  
+  <div class="post">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#什么是数据结构和算法">什么是数据结构和算法？</a></li>
+<li class="toc-entry toc-h2"><a href="#如何衡量一个算法的好坏">如何衡量一个算法的好坏?</a></li>
+<li class="toc-entry toc-h2"><a href="#还有什么其他方法">还有什么其他方法？</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#空间复杂度">空间复杂度</a></li>
+<li class="toc-entry toc-h3"><a href="#最好最坏时间复杂度">最好、最坏时间复杂度</a></li>
+<li class="toc-entry toc-h3"><a href="#平均时间复杂度">平均时间复杂度</a></li>
+</ul>
+</li>
+</ul><h2 id="什么是数据结构和算法">
+<a class="anchor" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>什么是数据结构和算法？</h2>
+
+<p>数据结构就是一组数据的存储结构，算法就是操作数据的一组方法。</p>
+
+<p>例如，图书馆中的书籍如果比作数据的话，那么各个书架就是存储数据的“数据结构”，如何找到一本书所需要的方法就称为算法。</p>
+
+<p>在计算机的角度观察，数据结构就是存储数据的逻辑结构，而非物理结构，例如，栈、序列、队列、树等等，相应地，算法就是在这些存储结构中查询、修改、删除、添加对应数据的方法，如：冒泡排序、二分查找、动态规划等。</p>
+
+<p>数据结构与算法之间是不可分割的，算法就是作用于对应的数据结构之上，数据结构就是为算法提供的基础逻辑，可以说两者是相辅相衬，互相影响的。</p>
+
+<p>下图包含了大部分的数据结构以及算法：
+<img src="/posts/2021/02/21/all.jpg" alt=""></p>
+
+<h2 id="如何衡量一个算法的好坏">
+<a class="anchor" href="#%E5%A6%82%E4%BD%95%E8%A1%A1%E9%87%8F%E4%B8%80%E4%B8%AA%E7%AE%97%E6%B3%95%E7%9A%84%E5%A5%BD%E5%9D%8F" aria-hidden="true"><span class="octicon octicon-link"></span></a>如何衡量一个算法的好坏?</h2>
+
+<p>既然存在这么多的算法，那必然其中有好有坏。简单来说，算法的优劣与程序执行的时间成反比，时间越短，算法则优，反之亦然。不过，这个规律不同的外在条件可能会有不同的结果，比如，数据规模，硬件条件，操作系统等等。</p>
+
+<p>那么，如何通过具体的指标来衡量一个算法呢？最简单的比较算法执行效率的方法就是直接判断程序执行的次数。假设排除其他外在因素的影响，程序每一行执行的时间都为==utime==。参考下边代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">A</span><span class="o">(){</span>
+	<span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="mi">10</span><span class="o">;</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">t</span><span class="o">&lt;</span><span class="n">b</span><span class="o">;</span><span class="n">t</span><span class="o">++){</span>
+		<span class="n">a</span><span class="o">+=</span><span class="n">t</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>第2，3，7行代码只需要执行1次，第4，5行代码需要执行b次，也就是执行10次，那么这段代码最终的执行时间T=(3+2*b)*utime,也就是 需要 耗时23utime 。</p>
+
+<p>我们由此可以归纳总结出规律，程序执行的时间与代码执行次数成正比。可以得出一下公式：</p>
+<blockquote>
+
+  <p>T(n)=O(f(n))</p>
+</blockquote>
+
+<p>其中T代表程序执行的时间，n代表数据的规模，f(n)代表程序执行的次数总和， O 为时间与执行次数的关系，是一种随着数据规模变化相对应时间变化的趋势，这种表示法就是<strong><u>大 O 时间复杂度表示法</u></strong>。</p>
+
+<p>例如下边代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">A</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">t</span><span class="o">&lt;</span><span class="n">n</span><span class="o">;</span><span class="n">t</span><span class="o">++){</span>
+        <span class="n">a</span><span class="o">+=</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">n</span><span class="o">;</span><span class="n">j</span><span class="o">++){</span>
+            <span class="n">b</span><span class="o">+=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>此代码中第2，3行只执行1次，对于时间复杂度 O 为 O(2)=C=1，我们认为是常数时间内执行，几乎不影响复杂度 O。第4，5，7行执行了n次，时间复杂度为 O(n) 。第8，9行代码执行了n*n次，时间复杂度为 O(n<sup>2</sup>)。那么该段程序最终的时间复杂度为 O(n<sup>2</sup>)+O(n)+C，从多项式的函数图像来看，影响函数曲线斜度最大的是最高次项，其他项可忽略不计，最终该段代码的时间复杂度为 O(n<sup>2</sup>)。</p>
+
+<p>下图为常见的几种时间复杂度函数图像：
+<img src="/posts/2021/02/21/function_pic.jpg" alt=""></p>
+
+<p>我们根据常见的代码结构可以总结出来以下规律：</p>
+
+<ul>
+  <li>只需要关注循环次数最多的一段代码</li>
+  <li>整体复杂度总是等于量级最大的那一段代码</li>
+  <li>嵌套代码的复杂度等于两者复杂度的乘积</li>
+</ul>
+
+<h2 id="还有什么其他方法">
+<a class="anchor" href="#%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>还有什么其他方法？</h2>
+
+<h3 id="空间复杂度">
+<a class="anchor" href="#%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6" aria-hidden="true"><span class="octicon octicon-link"></span></a>空间复杂度</h3>
+
+<p>除了从时间的角度分析算法的效率，还可以从空间的角度分析。类似地，空间复杂度即随着数据规模的变化存储空间的变化趋势。</p>
+
+<p>看下段代码示例：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">6</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+        <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>这段代码第2行只需要申请一个变量的空间，记为 O(1)。第3行代码申请了存放n个int类型的数组，使用的空间复杂度记为 O(n)。其他行代码并没有使用额外的空间。所以，这段代码的空间复杂度为 O(n) 【忽略常数项】。</p>
+
+<h3 id="最好最坏时间复杂度">
+<a class="anchor" href="#%E6%9C%80%E5%A5%BD%E6%9C%80%E5%9D%8F%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6" aria-hidden="true"><span class="octicon octicon-link"></span></a>最好、最坏时间复杂度</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">find</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">,</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span><span class="kt">int</span> <span class="n">x</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">pos</span><span class="o">=-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="k">for</span><span class="o">(;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">pos</span><span class="o">=</span><span class="n">i</span><span class="o">;</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">pos</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>上面这段代码实现的功能是查找变量x在数组array中出现的位置，如果未出现则返回-1。因为变量x在数组中出现的位置是任意的，使用之前的大O时间复杂度分析解决不了这个问题。不同情况下这段代码的时间复杂度是不一样的。</p>
+
+<p>为了表示代码在不同情况下的不同时间复杂度，我们引入三个概念，最好时间复杂度，最坏时间复杂度，平均时间复杂度。上述例子中<strong>最好时间复杂度</strong>为O(1)，<strong>最坏时间复杂度</strong>为O(n)。</p>
+
+<h3 id="平均时间复杂度">
+<a class="anchor" href="#%E5%B9%B3%E5%9D%87%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6" aria-hidden="true"><span class="octicon octicon-link"></span></a>平均时间复杂度</h3>
+
+<p>上述例子中变量x在数组中的位置，有n+1种情况：</p>
+
+<ol>
+  <li>在数组0~n-1中</li>
+  <li>不在数组中</li>
+</ol>
+
+<p>将这两种情况累加起来再除以n+1就可以得到变量元素个数的平均值：
+\[ \frac{1+2+3+…+n+n}{n+1}=\frac{n(n+3)}{2(n+1)} \]</p>
+
+
+  </div>
+  
+</div>
+<footer class="footer">
+  <span>Copyright © LJpgr</span>
+  <a href="/static/xml/rss.xml">RSS订阅</a>
+  <span>Theme By</span>
+  <a href="https://github.com/TMaize/tmaize-blog">TMaize</a>
+</footer>
+<div id="to-top">
+  <span></span>
+  <span></span>
+</div>
+<script type="text/javascript" src="/static/js/blog.js?t=20210513171618"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20210513171618"></script>
+<!-- 点击页面文字冒出特效 -->
+<script>
+;(function(){
+  var textArr = ['富强', '民主', '文明', '和谐', '自由', '平等', '公正', '法治', '爱国', '敬业', '诚信', '友善']
+  window.blog.initClickEffect(textArr)
+})()
+</script>
+
+</body>
+</html>

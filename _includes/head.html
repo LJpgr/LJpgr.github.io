@@ -10,6 +10,7 @@
     <meta name="applicable-device" content="pc,mobile">
     <meta name="google-site-verification" content="ckhUaoa05QCmWoE1FafzTBcqYI4yBOy-UJKopXDS18M" />
     <meta name="author" content="{{ site.author }}" />
+
     {%- if page.categories %}
     <meta name="description" content="{{ page.title }}" />
     <meta name="keywords" content="{{ site.author }}{% for category in page.categories %},{{ category }}{% endfor %}" />
@@ -18,7 +19,6 @@
     <meta name="keywords" content="{{ site.keywords }}" />
     {% endif -%}
     <link rel="icon" href="{{site.baseurl}}/static/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="{{site.baseurl}}/static/img/logo.png" />
     <link rel="stylesheet" href="{{site.baseurl}}/static/css/common.css?t={{buildAt}}">
     <link rel="stylesheet" href="{{site.baseurl}}/static/css/theme-dark.css?t={{buildAt}}">
     {%- if page.layout == "mypost" %}
@@ -29,6 +29,7 @@
     {%- if page.layout == "page" %}
     <link rel="stylesheet" href="{{site.baseurl}}/static/css/page.css?t={{buildAt}}">
     {%- endif %}
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
         window.blog = {
             baseurl: "{{site.baseurl}}",
@@ -53,4 +54,12 @@
             });
         }
     </script>
+     <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
 </head>
