@@ -13,16 +13,16 @@
     <meta name="description" content="0.0数据结构与算法_入门" />
     <meta name="keywords" content="LJpgr,数据结构与算法" />
     <link rel="icon" href="/static/img/favicon.ico" />
-    <link rel="stylesheet" href="/static/css/common.css?t=20210513171618">
-    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210513171618">
-    <link rel="stylesheet" href="/static/css/post.css?t=20210513171618">
-    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210513171618">
-    <link rel="stylesheet" href="/static/css/code-light.css?t=20210513171618">
+    <link rel="stylesheet" href="/static/css/common.css?t=20210514181448">
+    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210514181448">
+    <link rel="stylesheet" href="/static/css/post.css?t=20210514181448">
+    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210514181448">
+    <link rel="stylesheet" href="/static/css/code-light.css?t=20210514181448">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
         window.blog = {
             baseurl: "",
-            buildAt: "20210513171618",
+            buildAt: "20210514181448",
             darkTheme: false,
             setDarkTheme: function (dark) {
                 //this.darkTheme = Boolean(dark);
@@ -74,6 +74,7 @@
 <li class="toc-entry toc-h3"><a href="#空间复杂度">空间复杂度</a></li>
 <li class="toc-entry toc-h3"><a href="#最好最坏时间复杂度">最好、最坏时间复杂度</a></li>
 <li class="toc-entry toc-h3"><a href="#平均时间复杂度">平均时间复杂度</a></li>
+<li class="toc-entry toc-h3"><a href="#均摊时间复杂度">均摊时间复杂度</a></li>
 </ul>
 </li>
 </ul><h2 id="什么是数据结构和算法">
@@ -198,8 +199,43 @@
 </ol>
 
 <p>将这两种情况累加起来再除以n+1就可以得到变量元素个数的平均值：
-\[ \frac{1+2+3+…+n+n}{n+1}=\frac{n(n+3)}{2(n+1)} \]</p>
+\[ \frac{1+2+3+\cdots+n+n}{n+1}=\frac{n(n+3)}{2(n+1)} \]</p>
 
+<p>在大O标记法中可以省略系数，低阶，常量，所以<strong>平均时间复杂度</strong>就是O(n)</p>
+
+<h3 id="均摊时间复杂度">
+<a class="anchor" href="#%E5%9D%87%E6%91%8A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6" aria-hidden="true"><span class="octicon octicon-link"></span></a>均摊时间复杂度</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ <span class="c1">// array表示一个长度为n的数组</span>
+ <span class="c1">// 代码中的array.length就等于n</span>
+ <span class="kt">int</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+ <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+ 
+ <span class="kt">void</span> <span class="nf">insert</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+       <span class="o">}</span>
+       <span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">sum</span><span class="o">;</span>
+       <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">array</span><span class="o">[</span><span class="n">count</span><span class="o">]</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+    <span class="o">++</span><span class="n">count</span><span class="o">;</span>
+ <span class="o">}</span>
+</code></pre></div></div>
+
+<p>这段代码往一个数组中插入数据，当数组满了之后，遍历数组进行求和，然后将求和之后的sum放到数组array[0]的位置。</p>
+
+<p>当数组中有空闲空间，只需要做一次插入操作，所以<strong>最好时间复杂度</strong>为O(1)。最坏情况下，数组没有额外空间，现需要做一次数组遍历求和，然后在插入数据，即<strong>最坏时间复杂度</strong>为O(n)。</p>
+
+<p>数组长度为n。根据插入位置不同可以分为n种情况，每种情况时间复杂度都是O(1)。除此之外，有一种特殊情况，就是在数组没有额外空间时会执行遍历累加操作，时间复杂度是O(n)。并且这n+1种情况发生的概率一样都是1/(n+1)。所以根据加权平均的计算方法，可以求出平均时间复杂度为：
+\[1\times\frac{1}{n+1}+1\times\frac{1}{n+1}+\cdots+1\times\frac{1}{n+1}+n\times\frac{1}{n+1}=O(1)\]
+上一个例子中的find函数与这个例子中的insert有着很大的区别。find函数只有极端情况下时间复杂度是O(1)，其他情况下均为O(n)，而insert函数正好相反。</p>
+
+<p>此时我们需要引入均摊时间复杂度</p>
 
   </div>
   
@@ -214,8 +250,8 @@
   <span></span>
   <span></span>
 </div>
-<script type="text/javascript" src="/static/js/blog.js?t=20210513171618"></script>
-<script type="text/javascript" src="/static/js/search.js?t=20210513171618"></script>
+<script type="text/javascript" src="/static/js/blog.js?t=20210514181448"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20210514181448"></script>
 <!-- 点击页面文字冒出特效 -->
 <script>
 ;(function(){
