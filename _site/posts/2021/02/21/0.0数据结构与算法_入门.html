@@ -13,16 +13,16 @@
     <meta name="description" content="0.0数据结构与算法_入门" />
     <meta name="keywords" content="LJpgr,数据结构与算法" />
     <link rel="icon" href="/static/img/favicon.ico" />
-    <link rel="stylesheet" href="/static/css/common.css?t=20210514181448">
-    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210514181448">
-    <link rel="stylesheet" href="/static/css/post.css?t=20210514181448">
-    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210514181448">
-    <link rel="stylesheet" href="/static/css/code-light.css?t=20210514181448">
+    <link rel="stylesheet" href="/static/css/common.css?t=20210520113143">
+    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210520113143">
+    <link rel="stylesheet" href="/static/css/post.css?t=20210520113143">
+    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210520113143">
+    <link rel="stylesheet" href="/static/css/code-light.css?t=20210520113143">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
         window.blog = {
             baseurl: "",
-            buildAt: "20210514181448",
+            buildAt: "20210520113143",
             darkTheme: false,
             setDarkTheme: function (dark) {
                 //this.darkTheme = Boolean(dark);
@@ -233,9 +233,13 @@
 
 <p>数组长度为n。根据插入位置不同可以分为n种情况，每种情况时间复杂度都是O(1)。除此之外，有一种特殊情况，就是在数组没有额外空间时会执行遍历累加操作，时间复杂度是O(n)。并且这n+1种情况发生的概率一样都是1/(n+1)。所以根据加权平均的计算方法，可以求出平均时间复杂度为：
 \[1\times\frac{1}{n+1}+1\times\frac{1}{n+1}+\cdots+1\times\frac{1}{n+1}+n\times\frac{1}{n+1}=O(1)\]
-上一个例子中的find函数与这个例子中的insert有着很大的区别。find函数只有极端情况下时间复杂度是O(1)，其他情况下均为O(n)，而insert函数正好相反。</p>
+上一个例子中的find函数与这个例子中的insert有着很大的区别。find函数只有极端情况下时间复杂度是O(1)，其他情况下均为O(n)，而insert函数正好相反。并且两者时间复杂度出现的频率是规律的，一个O(n)之后，紧跟着n-1个O(1)操作。</p>
 
-<p>此时我们需要引入均摊时间复杂度</p>
+<p>此时我们并不需要找出所有的输入情况以及相应的发生概率再计算出加权平均值。针对这种特殊情况，引入一种更为简单的均摊时间复杂度。也是说每一次O(n)插入操作，都会跟着n-1次O(1)的插入操作，所以将O(n)操作均摊到n-1的耗时更少的操作上，这样均摊时间复杂度就是O(1)。由此看来均摊时间复杂度就是一种特殊的平均时间复杂度。</p>
+
+<p>什么情况下需要均摊时间复杂度？对于一个数据结构进行一组连续的操作中，大部分情况下时间复杂度很低，只有个别情况下时间复杂度比较高，而且这些操作之间存在连贯的时序关系，这时候可以用均摊时间复杂度。一般情况下，<strong>均摊时间复杂度等于最好时间复杂度</strong>。</p>
+
+<p>(完)</p>
 
   </div>
   
@@ -250,8 +254,8 @@
   <span></span>
   <span></span>
 </div>
-<script type="text/javascript" src="/static/js/blog.js?t=20210514181448"></script>
-<script type="text/javascript" src="/static/js/search.js?t=20210514181448"></script>
+<script type="text/javascript" src="/static/js/blog.js?t=20210520113143"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20210520113143"></script>
 <!-- 点击页面文字冒出特效 -->
 <script>
 ;(function(){
