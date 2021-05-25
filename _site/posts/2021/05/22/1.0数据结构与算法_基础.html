@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>1.0数据结构与算法_基础-LJpgr Blog</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="zh-CN" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="supported-color-schemes" content="light dark">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="google-site-verification" content="ckhUaoa05QCmWoE1FafzTBcqYI4yBOy-UJKopXDS18M" />
+    <meta name="author" content="LJpgr" />
+    <meta name="description" content="1.0数据结构与算法_基础" />
+    <meta name="keywords" content="LJpgr,数据结构与算法" />
+    <link rel="icon" href="/static/img/favicon.ico" />
+    <link rel="stylesheet" href="/static/css/common.css?t=20210525160904">
+    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210525160904">
+    <link rel="stylesheet" href="/static/css/post.css?t=20210525160904">
+    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210525160904">
+    <link rel="stylesheet" href="/static/css/code-light.css?t=20210525160904">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.blog = {
+            baseurl: "",
+            buildAt: "20210525160904",
+            darkTheme: false,
+            setDarkTheme: function (dark) {
+                //this.darkTheme = Boolean(dark);
+                //document.documentElement.className = this.darkTheme ? 'dark': '';
+                //document.querySelector('meta[name=theme-color]').setAttribute('content', this.darkTheme ? '#2D2E32': '#FFFFFF');
+            }
+        }
+        if (sessionStorage.darkTheme !== undefined) {
+            blog.setDarkTheme(sessionStorage.darkTheme === 'true'); // 记忆值，单个窗口内有效
+        } else {
+            blog.setDarkTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); // 跟随系统
+        }
+        if (window.matchMedia) {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            media.addListener(function (ev) {
+                blog.setDarkTheme(ev.currentTarget.matches);
+                sessionStorage.removeItem('darkTheme');
+            });
+        }
+    </script>
+     <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head><body ondragstart="return false;">
+<header class="header">
+    <img class="logo" src="/static/img/rust-logo-blk.svg" alt="logo" />
+    <nav class="menu">
+        <a href="/" class="hover-underline">首页</a>
+        <a href="/pages/categories.html" class="hover-underline">归类</a>
+        <a href="/pages/search.html" class="hover-underline">搜索</a>
+        <a href="/pages/about.html" class="hover-underline">关于</a>
+        </nav>
+</header><div class="page page-post">
+  <h1 class="title" id="1.0数据结构与算法_基础">1.0数据结构与算法_基础</h1>
+  
+  <div class="subtitle">LJpgr 于 2021-05-22 发布</div>
+  
+  <div class="post">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#线性表">线性表</a></li>
+<li class="toc-entry toc-h2"><a href="#非线性表">非线性表</a></li>
+<li class="toc-entry toc-h2"><a href="#数组">数组</a></li>
+<li class="toc-entry toc-h2"><a href="#链表">链表</a></li>
+<li class="toc-entry toc-h2"><a href="#扩容">扩容</a></li>
+<li class="toc-entry toc-h2"><a href="#变种">变种</a></li>
+</ul><blockquote>
+  <p>我们知道计算机实现运算功能，主要是通过CPU实现，而负责存储的设备有内存（如寄存器、多级缓存，主存）、外存（如硬盘，U盘等等）。而CPU直接读取数据对应的就是内存，所以内存存储数据需要特定的结构。</p>
+</blockquote>
+
+<h2 id="线性表">
+<a class="anchor" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>线性表</h2>
+
+<p>如果需要存储一组数据，最简单的方式那就是在内存中开辟一段连续的存储空间存放数据，依次存放数据，这对应我们常说的Array（数组）。另外，像LinkedList（链表）虽然在实际物理内存空间上来说并不连续，但从数据逻辑上来说是连续的。每个数据元素最多有两个方向的数据，即前一个/后一个。</p>
+
+<p>那么，通常来说，<strong>线性表就是一种在逻辑上连续的数据结构</strong>。</p>
+
+<p>常见的线性表如下：</p>
+
+<blockquote>
+  <ul>
+    <li>数组</li>
+    <li>链表</li>
+    <li>栈<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>
+</li>
+    <li>队列</li>
+  </ul>
+</blockquote>
+
+<h2 id="非线性表">
+<a class="anchor" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A1%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>非线性表</h2>
+
+<p>和线性表对应，<strong>非线性表就是一种在逻辑上不连续的数据结构</strong>，单个数据的方向有多个。</p>
+
+<p>常见的非线性表：</p>
+
+<blockquote>
+  <ul>
+    <li>树</li>
+    <li>图</li>
+    <li>堆</li>
+  </ul>
+</blockquote>
+
+<p>在之后的章节里，我们依次学习非线性的数据结构，现在回过头学习第一个数据结构。</p>
+
+<h2 id="数组">
+<a class="anchor" href="#%E6%95%B0%E7%BB%84" aria-hidden="true"><span class="octicon octicon-link"></span></a>数组</h2>
+
+<p><img src="/posts/2021/05/22/array.png" alt=""></p>
+
+<p>数组的优点在于随机访问速度足够快，时间复杂度为O(1)。假设数组占用的连续内存空间首地址为X,每单个数据大小为S,则需要计算第n个元素地址P为：</p>
+
+<p>\[P=X+n*S\]</p>
+
+<p>其中n为数组下标，即从0开始。</p>
+
+<p>既然有优点，那边相应的也会有缺点，当数组向其中某个位置插入或者删除某个元素时，后边的元素需要迁移或者后移一个位置。</p>
+
+<p><img src="/posts/2021/05/22/array_insert.png" alt=""></p>
+
+<p><img src="/posts/2021/05/22/array_del.png" alt=""></p>
+
+<p>可以看出，插入与删除的位置不同，需要移动的次数也不同，所以最好情况下，只需要在数组最后一个元素或者之后进行操作，插入与删除的时间复杂度为O(1)，最坏情况下需要操作数组第一个元素位置，时间复杂度为O(n)，其他每种情况出现的频率都一致，所以平均时间复杂度为(1+2+…+n)/n=O(n)。</p>
+
+<h2 id="链表">
+<a class="anchor" href="#%E9%93%BE%E8%A1%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>链表</h2>
+
+<p><img src="/posts/2021/05/22/list.png" alt=""></p>
+
+<p><img src="/posts/2021/05/22/list_insert.png" alt=""></p>
+
+<p><img src="/posts/2021/05/22/list_del.png" alt=""></p>
+
+<p>链表数据存储不是连续的内存块，是分散在堆内存<sup id="fnref:1:1"><a href="#fn:1" class="footnote">1</a></sup>: 中的。这种数据结构优点在于插入和删除元素效率很高，时间复杂度均为O(1)。缺点就是随机访问的速度降低，<strong>因为数据存储不是连续的空间，不能通过偏移量计算某个位置的数据</strong>。只能通过第一个元素开始逐个遍历所有元素直到找到目标元素为止。</p>
+
+<h2 id="扩容">
+<a class="anchor" href="#%E6%89%A9%E5%AE%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>扩容</h2>
+
+<p>这两者数据结构除了访问数据，操作数据的方式不同以外，还有一个不同之处，就是扩容。数组一但确定容量大小就不能够再改变，而链表可以支持动态分配堆内存增加容量。</p>
+
+<p>那么如果数组想支持扩容，需要如何操作？最简单的方式就是重新申请一个更大容量的空间，然后将原始数据复制到新的空间中。</p>
+
+<p><img src="/posts/2021/05/22/array_expand.png" alt=""></p>
+
+<p>示例图中一次性重新申请了12个新的存储空间，数组可以插入额外的2个元素，但是在此之后，又需要重新申请新的空间，每次扩容都需要数据的遍历拷贝时间，拷贝的时间复杂度为O(n)。那么每次需要申请多少额外的空间来减少这种数据拷贝的频次呢？我们先来看下JDK1.8中是如何实现扩容的。</p>
+
+<p>以ArrayList为例：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+     * Appends the specified element to the end of this list.
+     *
+     * @param e element to be appended to this list
+     * @return &lt;tt&gt;true&lt;/tt&gt; (as specified by {@link Collection#add})
+     */</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="no">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ensureCapacityInternal</span><span class="o">(</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>  <span class="c1">// Increments modCount!!</span>
+        <span class="n">elementData</span><span class="o">[</span><span class="n">size</span><span class="o">++]</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">ensureCapacityInternal</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">elementData</span> <span class="o">==</span> <span class="no">DEFAULTCAPACITY_EMPTY_ELEMENTDATA</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">minCapacity</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="no">DEFAULT_CAPACITY</span><span class="o">,</span> <span class="n">minCapacity</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">ensureExplicitCapacity</span><span class="o">(</span><span class="n">minCapacity</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">ensureExplicitCapacity</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">modCount</span><span class="o">++;</span>
+
+        <span class="c1">// overflow-conscious code</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">minCapacity</span> <span class="o">-</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="n">grow</span><span class="o">(</span><span class="n">minCapacity</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/*此处是实际扩容大小的计算方法*/</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// overflow-conscious code</span>
+        <span class="kt">int</span> <span class="n">oldCapacity</span> <span class="o">=</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="c1">// 每次扩容增加1.5倍</span>
+        <span class="kt">int</span> <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">oldCapacity</span> <span class="o">+</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">minCapacity</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">minCapacity</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="no">MAX_ARRAY_SIZE</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">hugeCapacity</span><span class="o">(</span><span class="n">minCapacity</span><span class="o">);</span>
+        <span class="c1">// minCapacity is usually close to size, so this is a win:</span>
+        <span class="n">elementData</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">elementData</span><span class="o">,</span> <span class="n">newCapacity</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>我们可以看到JDK中<strong>grow</strong>方法每次增加1.5倍的容量。假设每次扩容只增加额外一个空间，那么意味着每次<strong>Add</strong>操作都要进行一次数据拷贝操作。如果直接给数组扩容最大的容量，虽然数组只进行一次扩容，但是数组剩余空间长时间空闲，造成空间的浪费。总的来说，这是一个空间与时间的平衡选择。可以参考知乎一些大佬的解释：<a href="https://www.zhihu.com/question/36538542/answer/67929747">增长因子选择</a>。</p>
+
+<h2 id="变种">
+<a class="anchor" href="#%E5%8F%98%E7%A7%8D" aria-hidden="true"><span class="octicon octicon-link"></span></a>变种</h2>
+
+<p>（完）</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>注意此处的栈和内存中的栈不太一样，内存中分为栈内存与堆内存，栈内存是操作系统自动分配和释放，堆内存是程序手动申请和释放，是操作系统对内存的一种管理方式，而数据结构中的栈是一种逻辑概念，表示数据的先进后出。 <a href="#fnref:1" class="reversefootnote">↩</a> <a href="#fnref:1:1" class="reversefootnote">↩<sup>2</sup></a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+  
+</div>
+<footer class="footer">
+  <span>Copyright © LJpgr</span>
+  <a href="/static/xml/rss.xml">RSS订阅</a>
+  <span>Theme By</span>
+  <a href="https://github.com/TMaize/tmaize-blog">TMaize</a>
+</footer>
+<div id="to-top">
+  <span></span>
+  <span></span>
+</div>
+<script type="text/javascript" src="/static/js/blog.js?t=20210525160904"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20210525160904"></script>
+<!-- 点击页面文字冒出特效 -->
+<script>
+;(function(){
+  var textArr = ['富强', '民主', '文明', '和谐', '自由', '平等', '公正', '法治', '爱国', '敬业', '诚信', '友善']
+  window.blog.initClickEffect(textArr)
+})()
+</script>
+
+</body>
+</html>
