@@ -13,16 +13,16 @@
     <meta name="description" content="1.0数据结构与算法_基础" />
     <meta name="keywords" content="LJpgr,数据结构与算法" />
     <link rel="icon" href="/static/img/favicon.ico" />
-    <link rel="stylesheet" href="/static/css/common.css?t=20210526214513">
-    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210526214513">
-    <link rel="stylesheet" href="/static/css/post.css?t=20210526214513">
-    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210526214513">
-    <link rel="stylesheet" href="/static/css/code-light.css?t=20210526214513">
+    <link rel="stylesheet" href="/static/css/common.css?t=20210530080937">
+    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210530080937">
+    <link rel="stylesheet" href="/static/css/post.css?t=20210530080937">
+    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210530080937">
+    <link rel="stylesheet" href="/static/css/code-light.css?t=20210530080937">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
         window.blog = {
             baseurl: "",
-            buildAt: "20210526214513",
+            buildAt: "20210530080937",
             darkTheme: false,
             setDarkTheme: function (dark) {
                 //this.darkTheme = Boolean(dark);
@@ -150,9 +150,11 @@
 
 <p><strong>循环链表是一种特殊的单链表</strong>，优点在于处理的数据是循环特性的话，使用循环链表的代码逻辑更为简单。</p>
 
-<p>双向链表</p>
+<p>双向链表,在单链表的基础之上增加了一个prev指向上一个元素的指针。这样做可以方便的直接找到上一个节点，单链表则需要从头遍历节点，直到找到该节点的上一个元素。</p>
 
 <p><img src="/posts/2021/05/22/list_double.png" alt=""></p>
+
+<p>双向循环链表，就是在双向链表的基础之上将其收尾连接到一起。</p>
 
 <p><img src="/posts/2021/05/22/list_double_cycle.png" alt=""></p>
 
@@ -235,8 +237,8 @@
   <span></span>
   <span></span>
 </div>
-<script type="text/javascript" src="/static/js/blog.js?t=20210526214513"></script>
-<script type="text/javascript" src="/static/js/search.js?t=20210526214513"></script>
+<script type="text/javascript" src="/static/js/blog.js?t=20210530080937"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20210530080937"></script>
 <!-- 点击页面文字冒出特效 -->
 <script>
 ;(function(){
