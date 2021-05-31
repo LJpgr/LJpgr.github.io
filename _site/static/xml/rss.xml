@@ -5,16 +5,16 @@
     <link>/</link>
     <description>LJpgr的个人博客</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 28 May 2021 13:54:53 +0800</pubDate>
-    <lastBuildDate>Fri, 28 May 2021 13:54:53 +0800</lastBuildDate>
+    <pubDate>Mon, 31 May 2021 11:07:21 +0800</pubDate>
+    <lastBuildDate>Mon, 31 May 2021 11:07:21 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     <atom:link href="//static/xml/rss.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>0.0设计模式</title>
-      <link>//posts/2021/05/24/0.0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html</link>
-      <description>面向对象设计原则</description>
+      <link>//posts/2021/05/24/0.0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8E%9F%E5%88%99.html</link>
+      <description>面向对象设计原则在软件开发过程中，为了提高系统的可维护性和扩展性，一些前人大佬提出了7种设计原则，根据这些原则可以达到提高软件开发效率，节约开发成本，提高工程质量的效果。开闭原则开闭原则（OpenClosedPrinciple，OCP...</description>
       <pubDate>Mon, 24 May 2021 00:00:00 +0800</pubDate>
-      <gui>//posts/2021/05/24/0.0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html</gui>
+      <gui>//posts/2021/05/24/0.0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8E%9F%E5%88%99.html</gui>
     </item>
     <item>
       <title>1.0数据结构与算法_基础</title>
