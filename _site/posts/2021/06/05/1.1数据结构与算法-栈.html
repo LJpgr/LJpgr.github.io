@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>1.1数据结构与算法_栈-LJpgr Blog</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="zh-CN" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="supported-color-schemes" content="light dark">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="google-site-verification" content="ckhUaoa05QCmWoE1FafzTBcqYI4yBOy-UJKopXDS18M" />
+    <meta name="author" content="LJpgr" />
+    <meta name="description" content="1.1数据结构与算法_栈" />
+    <meta name="keywords" content="LJpgr,数据结构与算法" />
+    <link rel="icon" href="/static/img/favicon.ico" />
+    <link rel="stylesheet" href="/static/css/common.css?t=20210605202052">
+    <link rel="stylesheet" href="/static/css/theme-dark.css?t=20210605202052">
+    <link rel="stylesheet" href="/static/css/post.css?t=20210605202052">
+    <link rel="stylesheet" href="/static/css/code-dark.css?t=20210605202052">
+    <link rel="stylesheet" href="/static/css/code-light.css?t=20210605202052">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.blog = {
+            baseurl: "",
+            buildAt: "20210605202052",
+            darkTheme: false,
+            setDarkTheme: function (dark) {
+                //this.darkTheme = Boolean(dark);
+                //document.documentElement.className = this.darkTheme ? 'dark': '';
+                //document.querySelector('meta[name=theme-color]').setAttribute('content', this.darkTheme ? '#2D2E32': '#FFFFFF');
+            }
+        }
+        if (sessionStorage.darkTheme !== undefined) {
+            blog.setDarkTheme(sessionStorage.darkTheme === 'true'); // 记忆值，单个窗口内有效
+        } else {
+            blog.setDarkTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); // 跟随系统
+        }
+        if (window.matchMedia) {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            media.addListener(function (ev) {
+                blog.setDarkTheme(ev.currentTarget.matches);
+                sessionStorage.removeItem('darkTheme');
+            });
+        }
+    </script>
+     <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head><body ondragstart="return false;">
+<header class="header">
+    <img class="logo" src="/static/img/rust-logo-blk.svg" alt="logo" />
+    <nav class="menu">
+        <a href="/" class="hover-underline">首页</a>
+        <a href="/pages/categories.html" class="hover-underline">归类</a>
+        <a href="/pages/search.html" class="hover-underline">搜索</a>
+        <a href="/pages/about.html" class="hover-underline">关于</a>
+        </nav>
+</header><div class="page page-post">
+  <h1 class="title" id="1.1数据结构与算法_栈">1.1数据结构与算法_栈</h1>
+  
+  <div class="subtitle">LJpgr 于 2021-06-05 发布</div>
+  
+  <div class="post">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#栈">栈</a></li>
+</ul>
+<h2 id="栈">
+<a class="anchor" href="#%E6%A0%88" aria-hidden="true"><span class="octicon octicon-link"></span></a>栈</h2>
+
+<p>栈是生活中常见的一种存储结构的抽象，例如，枪的弹夹，装羽毛球的桶，一摞盘子等等，它们都具有一个相同的特点，那就是如果想使用下边的物件，必须先使用最上边的。都是从上而下一个一个依次使用，所以<strong>栈就是一种后进者先出，先进者后出的数据结构</strong>。</p>
+
+<p><img src="/posts/2021/06/05/stack.jpg" alt=""></p>
+
+<p>可以看出栈的数据操作都是在最顶端完成的，类似插入的功能称为入栈，删除的功能称为出栈。</p>
+
+<p><img src="/posts/2021/06/05/stack_pop.png" alt=""></p>
+
+<p>栈这种结构可以使用数组实现，称为顺序栈，而用链表实现的称为链式栈。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Stack</span><span class="o">{</span>
+  <span class="kd">private</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">items</span><span class="o">;</span><span class="c1">//使用数组实现栈</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">count</span><span class="o">;</span><span class="c1">//栈中元素个数</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span><span class="c1">//栈的容量</span>
+  
+  <span class="c1">//初始化</span>
+  <span class="kd">public</span> <span class="nf">Stack</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">){</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="n">size</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">items</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="n">size</span><span class="o">];</span>
+  <span class="o">}</span>
+  
+  <span class="c1">//出栈</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">pop</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span><span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">){</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈中无数据！"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nc">String</span> <span class="n">top</span> <span class="o">=</span> <span class="n">items</span><span class="o">[</span><span class="n">count</span><span class="o">-</span><span class="mi">1</span><span class="o">];</span>
+    <span class="n">count</span><span class="o">--;</span>
+    <span class="k">return</span> <span class="n">top</span><span class="o">;</span>
+  <span class="o">}</span>
+  
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push</span><span class="o">(</span><span class="nc">String</span> <span class="n">item</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span><span class="o">{</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="n">size</span><span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈已满"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">items</span><span class="o">[</span><span class="n">count</span><span class="o">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">;</span>
+    <span class="n">count</span><span class="o">++;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>那么栈这种数据结构有哪些具体的应用呢？一个常见的应用场景就是<strong>表达式求值</strong>。例如：34*23+34/13+12-34，借助栈可以将表达式分解为两个部分，一个是保存操作数的栈，另一个是保存操作运算符的栈。对于操作数直接将元素压入栈中如果比运算符栈顶元素优先级高，则将当前运算符压入栈，如果优先级相同或者较低，则从运算符栈顶取出元素，再从操作数栈</p>
+
+<p>（完）</p>
+
+
+  </div>
+  
+</div>
+<footer class="footer">
+  <span>Copyright © LJpgr</span>
+  <a href="/static/xml/rss.xml">RSS订阅</a>
+  <span>Theme By</span>
+  <a href="https://github.com/TMaize/tmaize-blog">TMaize</a>
+</footer>
+<div id="to-top">
+  <span></span>
+  <span></span>
+</div>
+<script type="text/javascript" src="/static/js/blog.js?t=20210605202052"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20210605202052"></script>
+<!-- 点击页面文字冒出特效 -->
+<script>
+;(function(){
+  var textArr = ['富强', '民主', '文明', '和谐', '自由', '平等', '公正', '法治', '爱国', '敬业', '诚信', '友善']
+  window.blog.initClickEffect(textArr)
+})()
+</script>
+
+</body>
+</html>
