@@ -5,12 +5,19 @@
     <link>/</link>
     <description>LJpgr的个人博客</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 31 May 2021 11:07:21 +0800</pubDate>
-    <lastBuildDate>Mon, 31 May 2021 11:07:21 +0800</lastBuildDate>
+    <pubDate>Sat, 05 Jun 2021 20:20:52 +0800</pubDate>
+    <lastBuildDate>Sat, 05 Jun 2021 20:20:52 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     <atom:link href="//static/xml/rss.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>0.0设计模式</title>
+      <title>1.1数据结构与算法_栈</title>
+      <link>//posts/2021/06/05/1.1%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E6%A0%88.html</link>
+      <description>栈栈是生活中常见的一种存储结构的抽象，例如，枪的弹夹，装羽毛球的桶，一摞盘子等等，它们都具有一个相同的特点，那就是如果想使用下边的物件，必须先使用最上边的。都是从上而下一个一个依次使用，所以栈就是一种后进者先出，先进者后出的数据结构。...</description>
+      <pubDate>Sat, 05 Jun 2021 00:00:00 +0800</pubDate>
+      <gui>//posts/2021/06/05/1.1%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E6%A0%88.html</gui>
+    </item>
+    <item>
+      <title>0.0设计模式-原则</title>
       <link>//posts/2021/05/24/0.0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8E%9F%E5%88%99.html</link>
       <description>面向对象设计原则在软件开发过程中，为了提高系统的可维护性和扩展性，一些前人大佬提出了7种设计原则，根据这些原则可以达到提高软件开发效率，节约开发成本，提高工程质量的效果。开闭原则开闭原则（OpenClosedPrinciple，OCP...</description>
       <pubDate>Mon, 24 May 2021 00:00:00 +0800</pubDate>
