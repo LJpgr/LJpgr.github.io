@@ -5,8 +5,8 @@
     <link>/</link>
     <description>LJpgr的个人博客</description>
     <language>zh-CN</language>
-    <pubDate>Sat, 05 Jun 2021 20:20:52 +0800</pubDate>
-    <lastBuildDate>Sat, 05 Jun 2021 20:20:52 +0800</lastBuildDate>
+    <pubDate>Fri, 25 Jun 2021 10:50:53 +0800</pubDate>
+    <lastBuildDate>Fri, 25 Jun 2021 10:50:53 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     <atom:link href="//static/xml/rss.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -15,6 +15,13 @@
       <description>栈栈是生活中常见的一种存储结构的抽象，例如，枪的弹夹，装羽毛球的桶，一摞盘子等等，它们都具有一个相同的特点，那就是如果想使用下边的物件，必须先使用最上边的。都是从上而下一个一个依次使用，所以栈就是一种后进者先出，先进者后出的数据结构。...</description>
       <pubDate>Sat, 05 Jun 2021 00:00:00 +0800</pubDate>
       <gui>//posts/2021/06/05/1.1%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E6%A0%88.html</gui>
+    </item>
+    <item>
+      <title>1.0设计模式-单例模式</title>
+      <link>//posts/2021/06/01/1.0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html</link>
+      <description>单例模式只能创建一个实例的类。例如：全局日志对象、数据库实例对象、Spring上下文对象。优点内存中只有一个实例，减少开销避免资源的多重占用资源共享访问缺点扩展不便，违背开闭原则代码集中到一个类中，违背单一职责原则实现饿汉式单例：pu...</description>
+      <pubDate>Tue, 01 Jun 2021 00:00:00 +0800</pubDate>
+      <gui>//posts/2021/06/01/1.0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html</gui>
     </item>
     <item>
       <title>0.0设计模式-原则</title>
