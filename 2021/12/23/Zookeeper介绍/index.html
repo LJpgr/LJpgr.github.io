@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>Zookeeper介绍 - 小西瓜的IT之路</title>
+
+  
+    <meta name="description" content="Zookeeper 概览Zookeeper 类似一个文件系统，允许分布式进程之间通过数据寄存器的共享命名空间（称为寄存器znodes）相互协调。与文件系统不同的是，Zookeeper为客户端对znodes提供了高吞吐、低时延、高可用以及严格顺序的访问。在性能方面，Zookeeper允许被用于大型的分布式系统中。在可靠性方面，它防止在大型系统中的单点故障。它的严格顺序允许客户端实现复杂的同步原语。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper介绍">
+<meta property="og:url" content="https://ljpgr.github.io/2021/12/23/Zookeeper%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="小西瓜的IT之路">
+<meta property="og:description" content="Zookeeper 概览Zookeeper 类似一个文件系统，允许分布式进程之间通过数据寄存器的共享命名空间（称为寄存器znodes）相互协调。与文件系统不同的是，Zookeeper为客户端对znodes提供了高吞吐、低时延、高可用以及严格顺序的访问。在性能方面，Zookeeper允许被用于大型的分布式系统中。在可靠性方面，它防止在大型系统中的单点故障。它的严格顺序允许客户端实现复杂的同步原语。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ljpgr.github.io/posts/2021/12/24/ZookeeperService.png">
+<meta property="og:image" content="https://ljpgr.github.io/posts/2021/12/24/ZookeeperComponents.jpg">
+<meta property="article:published_time" content="2021-12-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-11T15:38:29.475Z">
+<meta property="article:author" content="200斤">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ljpgr.github.io/posts/2021/12/24/ZookeeperService.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="title" href="/"><div class="main">小西瓜的IT之路</div><div class="sub normal cap">小西瓜的进击</div><div class="sub hover cap" style="opacity:0">WATERMELON‘s growth.</div></a></div>
+<nav class="menu dis-select"></nav></header>
+
+<div class="widgets">
+
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Zookeeper 概览</span></a></li></ol></div></div></div>
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-12-23T16:00:00.000Z">2021-12-23</time></div></div>
+
+<article class='content md post'>
+<h1 class="article-title"><span>Zookeeper介绍</span></h1>
+<h2><span id="zookeeper-概览">Zookeeper 概览</span></h2><p>Zookeeper 类似一个<strong>文件系统</strong>，允许分布式进程之间通过数据寄存器的共享命名空间（称为寄存器znodes）相互协调。与文件系统不同的是，Zookeeper为客户端对znodes提供了高吞吐、低时延、高可用以及严格顺序的访问。在性能方面，Zookeeper允许被用于大型的分布式系统中。在可靠性方面，它防止在大型系统中的单点故障。它的严格顺序允许客户端实现复杂的同步原语。</p>
+<p>Zookeeper提供的命名空间和标准的文件系统有着很多的相似之处。命名空间名称是由“/”分隔符组成的字符串，每一个Znode的path在Zookeeper的命名空间是一个唯一标志，每一个znode都有一个父znode，其父znode的path为当前znode的前缀少了一个元素。根结点（“/”）较为特殊，没有父znode，同样，和标准文件系统一样，如果znode有任何子节点，就不能删除它。</p>
+<p>与标准文件系统最大的不同就是Zookeeper的每一个znode都可以关联数据（每一个文件也可以是一个目录），并且znode的数据量是有限制的。Zookeeper被设计用于存储协调数据：状态信息、配置、位置信息，等等。这类元数据通常以KB或者B为单位。为了避免它被用来大的数据存储zookeeper内部具有一个1M的安全检查，并且通常它都被用于存储更小的数据。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/posts/2021/12/24/ZookeeperService.png"></p>
+<p>zookeeper服务是由一组相同副本的集群组成。这些机器在内存中维护了内存镜像、事务日志以及持久存储的快照。由于数据是保存在内存中的，zookeeper可以提供一个高吞吐、低延迟协调服务。既然数据在内存中，那么可管理的数据大小也依赖于内存大小。这也是zookeeper保存小数据块的一个重要原因。</p>
+<p>组成Zookeeper集群的服务必须要相互通信。只要大多数服务器可用，那么Zookeeper服务就可用。客户端必须知道服务器的列表，客户端使用列表中的一个服务创建连接。</p>
+<p>客户端仅需要连接单个zookeeper服务。并且维护了一个TCP连接，用于发送请求、获取应答、获取观察事件还有发送心跳。如果TCP连接断开，客户端会连接其他服务器。当客户端首次连接Zookeeper服务，第一个zookeeper服务会建立一个会话。如果客户端需要连接其他服务，这个会话将与新服务重建。</p>
+<p>客户端发送的读请求，将在连接的zookeeper服务器上进行本地处理。如果读请求在一个znode上注册了观察事件，那么也会被本地服务器触发。写请求会被转发到其他zookeeper服务器，并且需要进行协商一致后进行处理。同步请求被转发到其他服务器，但是不会进行协调处理。因此，读请求的吞吐量与机器数据成正比，写请求吞吐量与机器数量成反比。</p>
+<p>顺序在zookeeper中非常重要，至极。所有的更新都是完全有序的，zookeeper实际上为每个更新都打上了反应这个顺序的数字。称为zxid（zookeeper transcation id）。每一次更新都会有一个唯一的zxid。读或者观察事件也会更新zxid，读响应将使用服务读取的服务器处理的最后一个zxid。sdfsdf</p>
+<p>Zookeeper 组件 展示了Zookeeper服务高层的组件结构。除了请求处理器以外，组成Zookeeper服务的组件都有自身的副本.</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/posts/2021/12/24/ZookeeperComponents.jpg"></p>
+<p>（完）</p>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/2021/06/04/1.1%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E6%A0%88/">1.1数据结构与算法_栈<span class="note">较早</span></a><div class="line"></div><a id="prev" href="/2022/01/01/Zookeeper%E5%BF%AB%E9%80%9F%E6%8C%87%E5%8D%97/">Zookeeper指南<span class="note">较新</span></a></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ljpgr.github.io/">@200斤</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1" title="v1.6.1">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

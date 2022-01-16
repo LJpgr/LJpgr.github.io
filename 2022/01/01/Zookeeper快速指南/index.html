@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>Zookeeper指南 - 小西瓜的IT之路</title>
+
+  
+    <meta name="description" content="Zookeeper编程向导，官网硬翻。 使用Zookeeper开发分布式应用程序。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper指南">
+<meta property="og:url" content="https://ljpgr.github.io/2022/01/01/Zookeeper%E5%BF%AB%E9%80%9F%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="小西瓜的IT之路">
+<meta property="og:description" content="Zookeeper编程向导，官网硬翻。 使用Zookeeper开发分布式应用程序。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-16T15:46:46.355Z">
+<meta property="article:author" content="200斤">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='mypost'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="title" href="/"><div class="main">小西瓜的IT之路</div><div class="sub normal cap">小西瓜的进击</div><div class="sub hover cap" style="opacity:0">WATERMELON‘s growth.</div></a></div>
+<nav class="menu dis-select"></nav></header>
+
+<div class="widgets"></div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/2022/01/01/Zookeeper%E5%BF%AB%E9%80%9F%E6%8C%87%E5%8D%97/">Zookeeper指南</a></div></div>
+
+<article class='content md mypost'>
+<h1 class="article-title"><span>Zookeeper指南</span></h1>
+<p>Zookeeper编程向导，官网硬翻。</p>
+<p>使用Zookeeper开发分布式应用程序。</p>
+<span id="more"></span>
+
+<!-- toc -->
+
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
+<li><a href="#zookeeper%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B">Zookeeper数据模型</a><ul>
+<li><a href="#znodes">Znodes</a><ul>
+<li><a href="#watches">Watches</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE">数据访问</a></li>
+<li><a href="#%E4%B8%B4%E6%97%B6%E8%8A%82%E7%82%B9">临时节点</a></li>
+<li><a href="#%E5%BA%8F%E5%88%97%E8%8A%82%E7%82%B9-%E5%94%AF%E4%B8%80%E5%91%BD%E5%90%8D">序列节点 – 唯一命名</a></li>
+<li><a href="#%E5%AE%B9%E5%99%A8%E8%8A%82%E7%82%B9">容器节点</a></li>
+<li><a href="#%E4%B8%B4%E6%97%B6%E8%8A%82%E7%82%B9-1">临时节点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h1><span id="介绍">介绍</span></h1><p>这篇文章是关于利用Zookeeper协调服务创建应用程序面向于开发者的指南，其中包括了概念和实践信息。</p>
+<p>本指南前四部分介绍了Zookeeper高层次内容的讨论，这些是理解zookeeper运行原理以及使用zookeeper功能的关键。它不包括源代码，但假定你已经熟悉分布式计算问题的相关问题。</p>
+<p>这第一组的部分是：</p>
+<ul>
+<li><a href="#zookeeper%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B">Zookeeper数据模型</a></li>
+<li><a href="#zookeeper%E4%BC%9A%E8%AF%9D">Zookeeper会话</a></li>
+<li><a href="#zookeeper%E7%9B%91%E5%90%AC">Zookeeper监听</a></li>
+<li><a href="#%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E4%BF%9D%E8%AF%81">一致性的保证</a></li>
+</ul>
+<p>在后四个部分提供了一些编程练习信息。它包括：</p>
+<ul>
+<li>构建锁：使用zookeeper操作向导</li>
+<li>绑定</li>
+<li>陷阱：常见问题和故障排除</li>
+</ul>
+<p>这篇文章的结尾包含了一些索引信息，它包含了一些有用的连接，还有zookeeper相关的信息。</p>
+<p>本文档中大部分信息都是独立的参考资料编写的，但是，在启动第一个zookeeper应用程序之前，您至少一个阅读有关zookeeper数据模型和zookeeper基本操作的章节。</p>
+<h1><span id="zookeeper数据模型">Zookeeper数据模型</span></h1><p>Zookeeper具有层次结构的命名空间，就像一个分布式的文件系统。唯一的区别就是每个节点和子节点都可以关联对应的数据。看起来就像文件系统允许一个文件也是目录。路径都是以‘/’分割、绝对地址固定规则的路径，这里没有相对路径。除了一下规则外，允许使用任意Unicode字符作为路径描述：</p>
+<ul>
+<li>Null字符（\u0000)（导致C绑定出现问题）</li>
+<li>\u0001 - \u001F 、\u007F （不能显示，或者显示为非常规文字）</li>
+<li>\u009F</li>
+<li>\ud800F - \uF8FF、\uFFF0 - \uFFFF</li>
+<li>“.”或者”..”不能被单独使用，例如“/a/b/../c”、”/a/b/./c”，但是可以作为路径名称中的一部分</li>
+<li>“zookeeper”被保留</li>
+</ul>
+<h2><span id="znodes">Znodes</span></h2><p>Zookeeper树中每一个节点都称为znode。Znodes维护了一个状态结构，包括数据变化的版本号、ACL（Access Control List访问控制列表）的变化、时间戳变化。版本号信息和时间戳允许zookeeper验证缓存协调更新。每一次znode的数据变化，版本号都会递增。例如，当客户端检索数据，它也会接收到数据的版本，每当客户端执行删除或者更新操作时，它必须提供正在更改znode数据的版本号信息，如果版本号与数据实际版本号不匹配，则更新失败。（这个行为可以被重写。</p>
+<blockquote>
+<p>在分布式应用工程中，节点一词可以指通用主机、服务器、集成的成员、客户端进程等。znode指的是ZooKeeper文档中的数据节点。服务器是指构成ZooKeeper服务的机器;Quorum对等体是指组成一个整体的服务器;client是指使用ZooKeeper服务的任何主机或进程。</p>
+</blockquote>
+<p>）</p>
+<p>znode是程序员访问的主要实体。他们有几个特点在这里值得一提。</p>
+<h3><span id="watches">Watches</span></h3><p>客户端可以设置节点的监听。数据变化将触发监听，之后将清除监听。当监听触发，Zookeeper将会发送通知信息给客户端。更多信息在<a href="#zookeeper%E7%9B%91%E5%90%AC">Zookeeper监听</a>这部分查看。</p>
+<h3><span id="数据访问">数据访问</span></h3><p>在一个命名空间下每一个znode存储的数据读或写都是原子性操作。读操作获取与Znode关联的所有数据字节，而写操作将替换所有数据。每个节点都有一个访问控制列表（ACL），用于限制谁可以执行什么操作。</p>
+<p>Zookeeper设计初衷不是为了通用数据库或者大对象存储。相反，它管理的是协调数据。这种数据来源于配置、状态信息、汇聚等等。各种形式的坐标数据的一个共同属性就是它们相对较小：以千字节为单位。zookeeper客户端和服务端的实现都进行了健康检查，以确保znode的数据小于1M,但数据应该比平均数量少得多。对相对较大的数据进行操作会导致花费的时间要比其他操作长得多，甚至会延迟。因为大数据量在网络传输中需要更长的时间。处理此类数据应该考虑使用大容量存储系统，如NFS、HDFS，在zookeeper只存储指向的存储位置的指针。</p>
+<h3><span id="临时节点">临时节点</span></h3><p>Zookeeper也有临时节点的概念。这些Znodes 只存在会话创建期间。当会话结束，znode就会被删除。因此，临时节点不能存在子节点。获取当前会话的临时列表，可以通过<code>getEphmerals()</code>API进行访问。</p>
+<blockquote>
+<p><strong>getEphmerals()</strong></p>
+<p>检索当前会话给定路径的临时节点的列表。如果给定路径为空，将会显示当前会话所有的临时节点列表。例如，如果需要收集会话的临时节点列表重复的数据项，并且节点是按照顺序创建的，因此你并不知道重复项的名称，在这种情况下，使用此API获取会话列表，这常用于服务发现。</p>
+</blockquote>
+<h3><span id="序列节点-唯一命名">序列节点 – 唯一命名</span></h3><p>当我们创建一个znode可以请求zookeeper在增加一个单调递增计数器。这个计数器对于父节点是唯一的。计数器的格式为<code>%10d</code> —即10位填充0的数字（计数器的格式化是为了简化排序），即，<code>0000000001</code>。关于这个特性的示例，请参阅<a href="#Queue-Recipe">Queue Recipe</a>。注意：用于存储下一个序列号的计数器是由父节点维护的带符号的<code>INT(4 byte)</code>。当计数器的增量超过<code>2147483647</code>时将会溢出（导致数据变为<code>-2147483648</code>）。</p>
+<h3><span id="容器节点">容器节点</span></h3><p>==在3.6.0中添加==</p>
+<p>zookeeper中也有容器节点的概念。容器节点是一种特殊节点，用于选举、锁等等。当容器的最后一个子容器被删除时，该容器将成为将来某个时候有服务器删除的候选容器。</p>
+<p>有了这个特性，应该准备好<code>KeeperException</code>的异常，或者创建子节点时的<code>NoNodeException</code>。例如，当容器znode创建子znode时，总会检查<code>KeeperException</code>，<code>NoNodeException</code>并且重新创建容器节点。</p>
+<h3><span id="临时节点">临时节点</span></h3><p>==在3.6.0中添加==</p>
+<p>当创建<code>PERSISITENT</code> 或<code>PERSISITENT_SEQUENTAIL</code>节点时，你可以设置一个以毫秒为单位的TTL选项。如果节点在制定TTL时间内没有被修改并且没有子节点，那么该节点就会被服务器标记为在某一个时间点可以被删除的候选节点。</p>
+<p>注意：临时节点必须通过系统属性启用，默认是禁止的。如果在没有启用系统属性的情况下创建临时节点，将会抛出<code>KeeperException.UnimplementedException</code>的异常。</p>
+<p>（完）</p>
+
+
+<div class="article-footer reveal fs14"></div>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ljpgr.github.io/">@200斤</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1" title="v1.6.1">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
